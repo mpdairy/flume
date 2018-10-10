@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE NoImplicitPrelude    #-}
 
 module Main where
@@ -102,7 +103,21 @@ flumeViewModel m = FlumeEventAction . Flume.DomEvent <$> flumeView m
 main :: IO ()
 main = startFlume simple
 
-simple :: Flume IO event ()
+simple :: forall event. Flume IO event ()
 simple = void $ el div_ [] $ do
-  Flume.cmd $ print ("hello Flume" :: MisoString)
-  Flume.text "Flume" <|> Flume.text "Jackson"
+--  ((Flume.cmd $ print ("Hello Flume Console" :: MisoString)) <|> (Flume.cmd $ print ("So async!" :: MisoString)))
+  Flume.button "Click here to load the counter"
+  (el div_ [] $ Flume.text "three") <|> (Flume.cmd $ threadDelay 1000000)
+  (el div_ [] $ Flume.text "two") <|> (Flume.cmd $ threadDelay 1000000)
+  (el div_ [] $ Flume.text "one") <|> (Flume.cmd $ threadDelay 1000000)
+  counter 0
+  where
+    counter :: Int -> Flume IO event a
+    counter n = do
+      d <- displayCounter
+      counter (n + d)
+      where
+        displayCounter = (Flume.button "-" >> return (-1))
+                     <|> Flume.text (ms n)
+                     <|> (Flume.button "+" >> return 1)
+

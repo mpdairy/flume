@@ -80,7 +80,7 @@ button t = do
   eid <- lift get
   lift . put $ eid + 1
   el button_ [ MisoHE.onClick $ DomNull eid ]
-    $ (F.listen $ f eid)
+    $ (F.listen $ f eid) <|> text t
   where
     f eid (DomEvent (DomNull eid'))
       | eid == eid' = return ()
