@@ -2,8 +2,8 @@ resolver: lts-7.19
 compiler: ghc-8.0.1
 
 packages:
-- location: .
+  - location: .
 
 extra-deps:
-- miso-0.21.2.0
-- protolude-0.2.1
+  - miso-0.21.2.0
+  - protolude-0.2.1

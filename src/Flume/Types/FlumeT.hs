@@ -10,13 +10,6 @@ import Flume.Prelude
 import           Control.Monad.Trans                         ( MonadTrans )
 import qualified Data.Text                      as Text
 import Control.Concurrent.STM.TQueue (TQueue)
-import Data.Dynamic (Dynamic, fromDynamic, toDyn)
-
-data DomEvent
-  = Click
-  | KeyDown Char
-  deriving (Eq, Read, Show)
-
 
 newtype FlumeT m' event r m a =
   FlumeT { runFlumeT :: Maybe event

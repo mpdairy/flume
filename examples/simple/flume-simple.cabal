@@ -2,9 +2,9 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d5d3690bd68661f02c38ec8817df4a6fea7cd007c311c1e532070ff131bbd11c
+-- hash: d9acabb0d921fca63001d4bf5ce6b2cec1db621b295481e5e5ed2150a3b896ff
 
-name:           flume
+name:           flume-simple
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/mpdairy/flume#readme>
 homepage:       https://github.com/mpdairy/flume#readme
@@ -13,7 +13,6 @@ author:         Matt Parker
 maintainer:     mpdairy@gmail.com
 copyright:      2018 Matt Parker
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
 cabal-version:  >= 1.10
 extra-source-files:
@@ -26,36 +25,33 @@ source-repository head
 
 library
   exposed-modules:
-      Flume
-      Flume.Prelude
-      Flume.Types.FlumeT
+      Main
   other-modules:
-      Paths_flume
+      Paths_flume_simple
   hs-source-dirs:
       src
-  build-depends:
-      base >=4.7 && <5
-    , miso
-    , mtl
-    , protolude
-    , stm
-    , text
-  default-language: Haskell2010
-
-test-suite flam-test
-  type: exitcode-stdio-1.0
-  main-is: Spec.hs
-  other-modules:
-      Paths_flume
-  hs-source-dirs:
-      test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , flume
     , miso
     , mtl
     , protolude
-    , stm
+    , text
+  default-language: Haskell2010
+
+executable flume-simple
+  main-is: Main.hs
+  other-modules:
+      Paths_flume_simple
+  hs-source-dirs:
+      src
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , flume
+    , flume-simple
+    , miso
+    , mtl
+    , protolude
     , text
   default-language: Haskell2010
